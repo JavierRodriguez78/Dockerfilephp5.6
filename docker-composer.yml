@@ -1,0 +1,28 @@
+version: '2'
+services:
+  db:
+    image: "mysql"
+    volumes:
+      - "./data/db:/var/lib/mysql"
+    environment:
+      MYSQL_ROOT_PASWWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PAWWSORD: ${MYSQL_PASSWORD}
+
+  rabbit1:
+    image: "rabbitmq"
+    environment:
+      RABBITMQ_ERLANG_COOKIE: "SWQOKODSQALRPCLNMEQG"
+      RABBITMQ_DEFAULT_USER: "admin"
+      RABBITMQ_DEFAULT_PASS: "admin"
+      RABBITMQ_DEFAULT_VHOST: "/"
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+    volumes:
+      - "./enabled_plugin:/etc/rabbitmq/enabled_plugins"
+  app:
+    image: "sha256:acbec160ff8c8321489ed7c0e35f7f7b962a2c954b78f5940ddd9fa786bdd637"
+    ports:
+      - "3000:80"

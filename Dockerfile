@@ -11,3 +11,8 @@ ENV DEBIAN_FRONTEND noninteractive
 RUN add-apt-repository ppa:ondrej/php -y
 RUN apt-get update
 RUN apt-get install -y --force-yes php5.6
+
+EXPOSE 80
+CMD apachectl -D FOREGROUND
+
+WORKDIR /var/www/html
